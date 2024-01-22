@@ -1,5 +1,7 @@
+function getValue(id) {
+    return document.getElementById(id).value;
+}
 function registerStudent() {
-    var getValue = function (id) { return document.getElementById(id).value; };
     var firstName = getValue('firstName');
     var lastName = getValue('lastName');
     var classGrade = getValue('classGrade');
@@ -15,4 +17,15 @@ function registerStudent() {
     localStorage.setItem('students', JSON.stringify(studentData));
     document.getElementById('studentForm').reset();
     alert('Student registered successfully!');
+}
+function studentList() {
+    var studentData = JSON.parse(localStorage.getItem('students') || '[]');
+    var displayText = 'Student List:\n\n';
+    studentData.forEach(function (classInfo) {
+        displayText += "\nClass Grade: ".concat(classInfo.classGrade, "\n");
+        classInfo.students.forEach(function (student, index) {
+            displayText += "  ".concat(index + 1, ". ").concat(student.firstName, " ").concat(student.lastName, "\n");
+        });
+    });
+    alert(displayText);
 }
